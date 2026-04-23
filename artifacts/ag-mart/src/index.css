@@ -42,35 +42,38 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* Default = dark, web3/tech aesthetic */
+/* Default = dark, lemon-green + shining gold aesthetic */
 :root {
-  --background: 150 30% 5%;
-  --foreground: 80 30% 96%;
+  --background: 90 25% 5%;
+  --foreground: 60 50% 96%;
 
-  --card: 155 25% 9%;
-  --card-foreground: 80 25% 96%;
+  --card: 90 22% 8%;
+  --card-foreground: 60 45% 96%;
 
-  --popover: 155 25% 9%;
-  --popover-foreground: 80 25% 96%;
+  --popover: 90 22% 8%;
+  --popover-foreground: 60 45% 96%;
 
-  --primary: 142 75% 48%;
-  --primary-foreground: 150 40% 6%;
+  /* Lemon green */
+  --primary: 78 90% 58%;
+  --primary-foreground: 90 40% 8%;
 
-  --secondary: 45 95% 60%;
-  --secondary-foreground: 150 40% 6%;
+  /* Shining gold */
+  --secondary: 46 100% 62%;
+  --secondary-foreground: 90 40% 8%;
 
-  --muted: 155 18% 14%;
-  --muted-foreground: 150 10% 65%;
+  --muted: 88 15% 13%;
+  --muted-foreground: 70 15% 70%;
 
-  --accent: 165 90% 50%;
-  --accent-foreground: 150 40% 6%;
+  /* Bright lemon-lime accent */
+  --accent: 68 95% 60%;
+  --accent-foreground: 90 40% 8%;
 
   --destructive: 0 75% 55%;
   --destructive-foreground: 0 0% 100%;
 
-  --border: 155 18% 18%;
-  --input: 155 18% 18%;
-  --ring: 142 75% 48%;
+  --border: 88 15% 18%;
+  --input: 88 15% 18%;
+  --ring: 78 90% 58%;
 
   --app-font-sans: 'Inter', system-ui, sans-serif;
   --app-font-serif: 'Space Grotesk', 'Inter', sans-serif;
@@ -87,9 +90,9 @@
     color: hsl(var(--foreground));
     -webkit-font-smoothing: antialiased;
     background-image:
-      radial-gradient(circle at 15% 0%, hsla(142, 75%, 48%, 0.10), transparent 45%),
-      radial-gradient(circle at 85% 25%, hsla(165, 90%, 50%, 0.08), transparent 50%),
-      radial-gradient(circle at 50% 100%, hsla(45, 95%, 55%, 0.06), transparent 55%);
+      radial-gradient(circle at 15% 0%, hsla(78, 90%, 58%, 0.12), transparent 45%),
+      radial-gradient(circle at 85% 25%, hsla(46, 100%, 62%, 0.10), transparent 50%),
+      radial-gradient(circle at 50% 100%, hsla(68, 95%, 60%, 0.08), transparent 55%);
     background-attachment: fixed;
   }
   h1, h2, h3, h4, .font-serif {
@@ -100,46 +103,52 @@
 
 @layer utilities {
   .gold-text {
-    background: linear-gradient(135deg, #d4af37 0%, #f4d160 50%, #b8860b 100%);
+    background: linear-gradient(135deg, #f6c453 0%, #ffe27a 45%, #c89b1f 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
   .gold-bg {
-    background: linear-gradient(135deg, #b8860b 0%, #d4af37 50%, #f4d160 100%);
+    background: linear-gradient(135deg, #c89b1f 0%, #f6c453 50%, #ffe27a 100%);
   }
   .neon-text {
-    background: linear-gradient(135deg, hsl(142 75% 60%) 0%, hsl(165 90% 60%) 50%, hsl(180 85% 65%) 100%);
+    background: linear-gradient(135deg, hsl(78 95% 65%) 0%, hsl(68 95% 62%) 50%, hsl(46 100% 65%) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
   .neon-bg {
-    background: linear-gradient(135deg, hsl(142 75% 48%) 0%, hsl(165 90% 50%) 100%);
+    background: linear-gradient(135deg, hsl(78 90% 58%) 0%, hsl(46 100% 62%) 100%);
+  }
+  .lemon-gold-text {
+    background: linear-gradient(135deg, hsl(78 95% 65%) 0%, hsl(46 100% 65%) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .glass {
-    background: linear-gradient(180deg, hsla(155, 30%, 14%, 0.55), hsla(155, 30%, 10%, 0.55));
+    background: linear-gradient(180deg, hsla(88, 25%, 14%, 0.55), hsla(88, 25%, 9%, 0.55));
     backdrop-filter: blur(14px) saturate(140%);
     -webkit-backdrop-filter: blur(14px) saturate(140%);
-    border: 1px solid hsla(150, 30%, 60%, 0.12);
+    border: 1px solid hsla(78, 60%, 60%, 0.14);
   }
   .glass-strong {
-    background: linear-gradient(180deg, hsla(155, 30%, 18%, 0.75), hsla(155, 30%, 12%, 0.75));
+    background: linear-gradient(180deg, hsla(88, 25%, 18%, 0.75), hsla(88, 25%, 11%, 0.75));
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border: 1px solid hsla(150, 30%, 60%, 0.18);
+    border: 1px solid hsla(78, 60%, 60%, 0.20);
   }
   .grid-bg {
     background-image:
-      linear-gradient(hsla(150, 30%, 60%, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, hsla(150, 30%, 60%, 0.06) 1px, transparent 1px);
+      linear-gradient(hsla(78, 50%, 60%, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, hsla(78, 50%, 60%, 0.08) 1px, transparent 1px);
     background-size: 56px 56px;
   }
   .glow-primary {
-    box-shadow: 0 0 0 1px hsla(142, 75%, 48%, 0.4), 0 8px 40px -8px hsla(142, 75%, 48%, 0.5);
+    box-shadow: 0 0 0 1px hsla(78, 90%, 58%, 0.45), 0 8px 40px -8px hsla(78, 90%, 58%, 0.55);
   }
   .glow-accent {
-    box-shadow: 0 0 0 1px hsla(165, 90%, 50%, 0.4), 0 8px 40px -8px hsla(165, 90%, 50%, 0.5);
+    box-shadow: 0 0 0 1px hsla(46, 100%, 62%, 0.45), 0 8px 40px -8px hsla(46, 100%, 62%, 0.55);
   }
 
   @keyframes float-slow {
@@ -149,9 +158,9 @@
   .animate-float { animation: float-slow 6s ease-in-out infinite; }
 
   @keyframes pulse-ring {
-    0% { box-shadow: 0 0 0 0 hsla(142, 75%, 48%, 0.5); }
-    70% { box-shadow: 0 0 0 14px hsla(142, 75%, 48%, 0); }
-    100% { box-shadow: 0 0 0 0 hsla(142, 75%, 48%, 0); }
+    0% { box-shadow: 0 0 0 0 hsla(78, 90%, 58%, 0.55); }
+    70% { box-shadow: 0 0 0 14px hsla(78, 90%, 58%, 0); }
+    100% { box-shadow: 0 0 0 0 hsla(78, 90%, 58%, 0); }
   }
   .pulse-ring { animation: pulse-ring 2s infinite; }
 
