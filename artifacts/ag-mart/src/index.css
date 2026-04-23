@@ -44,6 +44,8 @@
 
 /* Default = dark, lemon-green + shining gold aesthetic */
 :root {
+  color-scheme: dark;
+  forced-color-adjust: none;
   --background: 90 25% 5%;
   --foreground: 60 50% 96%;
 
@@ -82,12 +84,18 @@
 }
 
 @layer base {
-  * { border-color: hsl(var(--border)); }
-  html { scroll-behavior: smooth; }
+  * { border-color: hsl(var(--border)); forced-color-adjust: none; }
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+    background: hsl(var(--background));
+    forced-color-adjust: none;
+  }
   body {
     font-family: var(--app-font-sans);
     background: hsl(var(--background));
     color: hsl(var(--foreground));
+    forced-color-adjust: none;
     -webkit-font-smoothing: antialiased;
     background-image:
       radial-gradient(circle at 15% 0%, hsla(78, 90%, 58%, 0.12), transparent 45%),
