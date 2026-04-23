@@ -1,27 +1,31 @@
-kind = "mobile"
+kind = "web"
 previewPath = "/"
-title = "AG Mart"
+title = "Agrillion Mart"
 version = "1.0.0"
 id = "artifacts/ag-mart"
-router = "expo-domain"
+router = "path"
 
 [[integratedSkills]]
-name = "expo"
+name = "react-vite"
 version = "1.0.0"
 
 [[services]]
-ensurePreviewReachable = "/status"
-name = "expo"
+name = "web"
 paths = [ "/" ]
-localPort = 18371
+localPort = 21565
 
 [services.development]
 run = "pnpm --filter @workspace/ag-mart run dev"
 
 [services.production]
 build = [ "pnpm", "--filter", "@workspace/ag-mart", "run", "build" ]
-run = [ "pnpm", "--filter", "@workspace/ag-mart", "run", "serve" ]
+publicDir = "artifacts/ag-mart/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
 
 [services.env]
-PORT = "18371"
+PORT = "21565"
 BASE_PATH = "/"

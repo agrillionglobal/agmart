@@ -24,4 +24,10 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
 - `pnpm --filter @workspace/api-server run dev` — run API server locally
 
+## Artifacts
+
+- **Agrillion Mart (`artifacts/ag-mart`)** — React + Vite web marketplace at `/`. Connects buyers with verified farmers and vendors. Uses local in-browser cart/order persistence (no backend yet). Pages: Home, Browse, Product, Vendors, Vendor, Cart, Checkout, Orders. Brand logo at `src/assets/logo.jpeg` and `public/logo.jpeg`.
+- **API Server (`artifacts/api-server`)** — Express 5 API at `/api`. Currently only health check; ready for future server-backed features.
+- **Mockup Sandbox (`artifacts/mockup-sandbox`)** — Vite preview server for canvas mockups.
+
 See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details.
