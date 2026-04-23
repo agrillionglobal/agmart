@@ -18,6 +18,7 @@ import AIMart from "@/pages/AIMart";
 import Onboarding from "@/pages/Onboarding";
 import VendorList from "@/pages/VendorList";
 import Contact from "@/pages/Contact";
+import Admin from "@/pages/Admin";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ function Router() {
       <Route path="/ai-mart" component={AIMart} />
       <Route path="/onboarding" component={Onboarding} />
       <Route path="/contact" component={Contact} />
+      <Route path="/admin" component={Admin} />
       <Route path="/cart" component={Cart} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/order-success" component={OrderSuccess} />

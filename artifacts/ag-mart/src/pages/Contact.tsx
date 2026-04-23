@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, MapPin, Phone, Send, MessageCircle, Clock, CheckCircle2 } from "lucide-react";
 import { AnimatedIcon } from "@/components/AnimatedIcon";
+import { adminQueue } from "@/store/admin";
 
 const SUPPORT_EMAIL = "support@agrillionmart.store";
 
@@ -20,7 +21,19 @@ export default function Contact() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const fd = new FormData(e.currentTarget as HTMLFormElement);
+    const name = String(fd.get("name") || "Anonymous");
+    const email = String(fd.get("email") || "");
+    const phone = String(fd.get("phone") || "");
+    const message = String(fd.get("message") || "");
+    adminQueue.add({
+      type: "message",
+      title: `${topic} — ${name}`,
+      subtitle: email,
+      data: { topic, name, email, phone, message },
+    });
     setSubmitted(true);
+    (e.currentTarget as HTMLFormElement).reset();
     setTimeout(() => setSubmitted(false), 6000);
   };
 
@@ -133,8 +146,9 @@ export default function Contact() {
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
-                <Field label="Full name" placeholder="Adaeze Okafor" required />
+                <Field name="name" label="Full name" placeholder="Adaeze Okafor" required />
                 <Field
+                  name="email"
                   label="Email"
                   type="email"
                   placeholder="you@example.com"
@@ -142,7 +156,7 @@ export default function Contact() {
                 />
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
-                <Field label="Phone (optional)" placeholder="+234 …" />
+                <Field name="phone" label="Phone (optional)" placeholder="+234 …" />
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mb-2">
                     Topic
@@ -166,6 +180,7 @@ export default function Contact() {
                   Message
                 </label>
                 <textarea
+                  name="message"
                   required
                   rows={6}
                   placeholder="Tell us what you need help with…"
@@ -216,11 +231,13 @@ function Field({
   type = "text",
   placeholder,
   required,
+  name,
 }: {
   label: string;
   type?: string;
   placeholder?: string;
   required?: boolean;
+  name?: string;
 }) {
   return (
     <div>
@@ -229,6 +246,7 @@ function Field({
       </label>
       <input
         type={type}
+        name={name}
         required={required}
         placeholder={placeholder}
         className="w-full h-11 rounded-xl bg-card/60 border border-border/60 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary/50"

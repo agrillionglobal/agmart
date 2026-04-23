@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { AnimatedIcon } from "@/components/AnimatedIcon";
 import { NIGERIAN_STATES } from "@/data/nigeria";
+import { adminQueue } from "@/store/admin";
 
 type Role = "farmer" | "vendor" | "logistics" | "buyer";
 
@@ -90,6 +91,16 @@ export default function Onboarding() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const fd = new FormData(e.currentTarget as HTMLFormElement);
+    const entries: Record<string, string> = {};
+    fd.forEach((v, k) => { entries[k] = String(v); });
+    const fullName = entries.fullName || "Anonymous";
+    adminQueue.add({
+      type: "signup",
+      title: fullName,
+      subtitle: `${roles.find((x) => x.id === active)!.title} · ${entries.state || "Nigeria"}`,
+      data: { role: active, ...entries },
+    });
     setSubmitted(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -181,27 +192,29 @@ export default function Onboarding() {
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <Field label="Full name" placeholder="e.g. Aisha Bello" required />
-                  <Field label="Email" type="email" placeholder="you@example.com" required />
-                  <Field label="Phone" placeholder="+234 …" required />
-                  <SelectField label="State" options={[...NIGERIAN_STATES]} required />
+                  <Field name="fullName" label="Full name" placeholder="e.g. Aisha Bello" required />
+                  <Field name="email" label="Email" type="email" placeholder="you@example.com" required />
+                  <Field name="phone" label="Phone" placeholder="+234 …" required />
+                  <SelectField name="state" label="State" options={[...NIGERIAN_STATES]} required />
                 </div>
 
                 {active === "farmer" && (
                   <div className="grid sm:grid-cols-2 gap-4">
                     <SelectField
+                      name="farmSize"
                       label="Farm size"
                       options={["Small farm (≤ 5 hectares)", "Big farm (> 5 hectares)"]}
                       required
                     />
-                    <Field label="Primary crop / livestock" placeholder="e.g. Maize, Poultry" />
+                    <Field name="crop" label="Primary crop / livestock" placeholder="e.g. Maize, Poultry" />
                   </div>
                 )}
 
                 {active === "vendor" && (
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <Field label="Business name" placeholder="e.g. Bello Foods Ltd." required />
+                    <Field name="businessName" label="Business name" placeholder="e.g. Bello Foods Ltd." required />
                     <SelectField
+                      name="categoryFocus"
                       label="Category focus"
                       options={["Produce", "Livestock", "Inputs & feeds", "Mixed"]}
                     />
@@ -211,21 +224,23 @@ export default function Onboarding() {
                 {active === "logistics" && (
                   <div className="grid sm:grid-cols-2 gap-4">
                     <SelectField
+                      name="vehicleType"
                       label="Vehicle type"
                       options={["Bike", "Tricycle", "Van", "Truck (cold-chain)", "Truck (dry)"]}
                       required
                     />
-                    <Field label="Routes / states served" placeholder="e.g. Lagos ↔ Oyo" />
+                    <Field name="routes" label="Routes / states served" placeholder="e.g. Lagos ↔ Oyo" />
                   </div>
                 )}
 
                 {active === "buyer" && (
                   <div className="grid sm:grid-cols-2 gap-4">
                     <SelectField
+                      name="accountType"
                       label="Account type"
                       options={["Household", "Restaurant / HoReCa", "Retailer", "Processor"]}
                     />
-                    <Field label="Estimated monthly spend (₦)" placeholder="e.g. 250,000" />
+                    <Field name="monthlySpend" label="Estimated monthly spend (₦)" placeholder="e.g. 250,000" />
                   </div>
                 )}
 
@@ -270,13 +285,14 @@ export default function Onboarding() {
 }
 
 function Field({
-  label, type = "text", placeholder, required,
-}: { label: string; type?: string; placeholder?: string; required?: boolean }) {
+  label, type = "text", placeholder, required, name,
+}: { label: string; type?: string; placeholder?: string; required?: boolean; name?: string }) {
   return (
     <label className="block">
       <span className="text-xs font-medium text-muted-foreground">{label}{required && " *"}</span>
       <input
         type={type}
+        name={name}
         placeholder={placeholder}
         required={required}
         className="mt-1.5 w-full h-11 px-3.5 rounded-xl bg-background/50 border border-border/60 focus:border-primary/60 focus:outline-none text-sm"
@@ -286,12 +302,13 @@ function Field({
 }
 
 function SelectField({
-  label, options, required,
-}: { label: string; options: string[]; required?: boolean }) {
+  label, options, required, name,
+}: { label: string; options: string[]; required?: boolean; name?: string }) {
   return (
     <label className="block">
       <span className="text-xs font-medium text-muted-foreground">{label}{required && " *"}</span>
       <select
+        name={name}
         required={required}
         defaultValue=""
         className="mt-1.5 w-full h-11 px-3 rounded-xl bg-background/50 border border-border/60 focus:border-primary/60 focus:outline-none text-sm"

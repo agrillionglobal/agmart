@@ -8,6 +8,7 @@ import { AnimatedIcon } from "@/components/AnimatedIcon";
 import { NIGERIAN_STATES } from "@/data/nigeria";
 import { categories } from "@/data/catalog";
 import { formatNaira } from "@/store/cart";
+import { adminQueue } from "@/store/admin";
 
 export default function VendorList() {
   const [submitted, setSubmitted] = useState(false);
@@ -34,6 +35,25 @@ export default function VendorList() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const fd = new FormData(e.currentTarget as HTMLFormElement);
+    const name = String(fd.get("productName") || "Untitled product");
+    const category = String(fd.get("category") || "");
+    const unit = String(fd.get("unit") || "");
+    const state = String(fd.get("state") || "");
+    const town = String(fd.get("town") || "");
+    const quantity = Number(fd.get("quantity") || 0);
+    adminQueue.add({
+      type: "listing",
+      title: `${name}${unit ? " · " + unit : ""}`,
+      subtitle: `${town}${state ? ", " + state : ""}`,
+      data: {
+        category, unit, state, location: town, quantity,
+        listPrice: price,
+        logisticsFee: includeLogistics ? logistics : 0,
+        buyerPays: split.buyerPays,
+        vendorReceives: split.vendorNet - split.systemFee,
+      },
+    });
     setSubmitted(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -102,24 +122,26 @@ export default function VendorList() {
                 </div>
               </div>
 
-              <Field label="Product name" placeholder="e.g. Premium yellow maize" required />
+              <Field name="productName" label="Product name" placeholder="e.g. Premium yellow maize" required />
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <SelectField
+                  name="category"
                   label="Category"
                   options={categories.map((c) => c.name)}
                   required
                 />
-                <Field label="Unit" placeholder="e.g. 50kg bag, crate, kg" required />
+                <Field name="unit" label="Unit" placeholder="e.g. 50kg bag, crate, kg" required />
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
-                <SelectField label="State" options={[...NIGERIAN_STATES]} required />
-                <Field label="Location / town" placeholder="e.g. Bodija, Ibadan" required />
+                <SelectField name="state" label="State" options={[...NIGERIAN_STATES]} required />
+                <Field name="town" label="Location / town" placeholder="e.g. Bodija, Ibadan" required />
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <Field
+                  name="quantity"
                   label="Quantity available"
                   type="number"
                   placeholder="e.g. 200"
@@ -254,16 +276,17 @@ function Row({
 }
 
 function Field({
-  label, type = "text", placeholder, required, multiline,
+  label, type = "text", placeholder, required, multiline, name,
 }: {
   label: string; type?: string; placeholder?: string;
-  required?: boolean; multiline?: boolean;
+  required?: boolean; multiline?: boolean; name?: string;
 }) {
   return (
     <label className="block">
       <span className="text-xs font-medium text-muted-foreground">{label}{required && " *"}</span>
       {multiline ? (
         <textarea
+          name={name}
           rows={3}
           placeholder={placeholder}
           required={required}
@@ -272,6 +295,7 @@ function Field({
       ) : (
         <input
           type={type}
+          name={name}
           placeholder={placeholder}
           required={required}
           className="mt-1.5 w-full h-11 px-3.5 rounded-xl bg-background/50 border border-border/60 focus:border-primary/60 focus:outline-none text-sm"
@@ -303,12 +327,13 @@ function NumberField({
 }
 
 function SelectField({
-  label, options, required,
-}: { label: string; options: string[]; required?: boolean }) {
+  label, options, required, name,
+}: { label: string; options: string[]; required?: boolean; name?: string }) {
   return (
     <label className="block">
       <span className="text-xs font-medium text-muted-foreground">{label}{required && " *"}</span>
       <select
+        name={name}
         required={required}
         defaultValue=""
         className="mt-1.5 w-full h-11 px-3 rounded-xl bg-background/50 border border-border/60 focus:border-primary/60 focus:outline-none text-sm"
