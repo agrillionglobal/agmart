@@ -10,17 +10,17 @@ export function Logo({ size = 40, withText = true }: { size?: number; withText?:
           alt="Agrillion Mart"
           width={size}
           height={size}
-          className="relative rounded-full object-cover ring-2 ring-secondary/40 shadow-lg"
+          className="relative rounded-full object-cover ring-1 ring-secondary/30 shadow-lg"
           style={{ width: size, height: size }}
         />
       </div>
       {withText && (
         <div className="leading-tight">
-          <div className="font-serif text-base sm:text-lg font-bold gold-text tracking-wide">
-            AGRILLION MART
+          <div className="font-serif text-base sm:text-lg font-semibold tracking-tight text-foreground">
+            Agrillion <span className="gold-text">Mart</span>
           </div>
-          <div className="text-[9px] uppercase tracking-[0.3em] text-muted-foreground">
-            smart agri · ai
+          <div className="text-[9px] uppercase tracking-[0.32em] text-muted-foreground/80 font-mono">
+            smart ag mart
           </div>
         </div>
       )}

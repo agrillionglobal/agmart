@@ -14,7 +14,9 @@ import OrderSuccess from "@/pages/OrderSuccess";
 import Orders from "@/pages/Orders";
 import Vendors from "@/pages/Vendors";
 import VendorDetail from "@/pages/VendorDetail";
-import AILab from "@/pages/AILab";
+import AIMart from "@/pages/AIMart";
+import Onboarding from "@/pages/Onboarding";
+import VendorList from "@/pages/VendorList";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -26,8 +28,10 @@ function Router() {
       <Route path="/browse" component={Browse} />
       <Route path="/product/:id" component={ProductDetail} />
       <Route path="/vendors" component={Vendors} />
+      <Route path="/vendor/list" component={VendorList} />
       <Route path="/vendor/:id" component={VendorDetail} />
-      <Route path="/ai" component={AILab} />
+      <Route path="/ai-mart" component={AIMart} />
+      <Route path="/onboarding" component={Onboarding} />
       <Route path="/cart" component={Cart} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/order-success" component={OrderSuccess} />
