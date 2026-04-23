@@ -1,0 +1,50 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "rK418zoxOQi-19_mccdvJ"
+uri = "file://artifacts/ag-mart/assets/images/icon.png"
+type = "image"
+title = "ag mart icon"
+
+[[generated]]
+id = "smMDJROT4zrNmfGQmbS1K"
+uri = "file://artifacts/ag-mart/assets/images/tomatoes.png"
+type = "image"
+title = "fresh tomatoes"
+
+[[generated]]
+id = "QLE8xweWQkuP-xm-NrSL_"
+uri = "file://artifacts/ag-mart/assets/images/maize.png"
+type = "image"
+title = "maize bag"
+
+[[generated]]
+id = "WUhKmFVHgvCuR6qkOB415"
+uri = "file://artifacts/ag-mart/assets/images/poultry.png"
+type = "image"
+title = "poultry chickens"
+
+[[generated]]
+id = "krj0t83z7NTl1pzMTG1Sh"
+uri = "file://artifacts/ag-mart/assets/images/fish.png"
+type = "image"
+title = "fresh fish"
+
+[[generated]]
+id = "C_OTBDqtNYDXvjcZbhVkQ"
+uri = "file://artifacts/ag-mart/assets/images/greens.png"
+type = "image"
+title = "leafy greens"
+
+[[generated]]
+id = "F8SURWcRxsUmDDoI7IsyC"
+uri = "file://artifacts/ag-mart/assets/images/inputs.png"
+type = "image"
+title = "farm inputs"
+
+[[generated]]
+id = "z6VGJuGgJqVRTbqhwHKoA"
+uri = "file://artifacts/ag-mart/assets/images/farmer.png"
+type = "image"
+title = "farmer portrait"
