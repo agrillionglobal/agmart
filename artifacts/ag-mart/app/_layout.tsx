@@ -12,7 +12,7 @@ import React, { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { View, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator, Platform } from "react-native";
 
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { StoreProvider, useStore } from "@/store";
@@ -94,14 +94,41 @@ export default function RootLayout() {
           <GestureHandlerRootView style={{ flex: 1 }}>
             <KeyboardProvider>
               <StoreProvider>
-                <OnboardingGate>
-                  <RootLayoutNav />
-                </OnboardingGate>
+                <WebFrame>
+                  <OnboardingGate>
+                    <RootLayoutNav />
+                  </OnboardingGate>
+                </WebFrame>
               </StoreProvider>
             </KeyboardProvider>
           </GestureHandlerRootView>
         </QueryClientProvider>
       </ErrorBoundary>
     </SafeAreaProvider>
+  );
+}
+
+function WebFrame({ children }: { children: React.ReactNode }) {
+  if (Platform.OS !== "web") return <>{children}</>;
+  return (
+    <View style={{ flex: 1, backgroundColor: "#0f1410", alignItems: "center" }}>
+      <View
+        style={{
+          flex: 1,
+          width: "100%",
+          maxWidth: 480,
+          backgroundColor: "#fff",
+          shadowColor: "#000",
+          shadowOpacity: 0.18,
+          shadowRadius: 24,
+          shadowOffset: { width: 0, height: 8 },
+          // @ts-expect-error web-only
+          boxShadow: "0 12px 40px rgba(0,0,0,0.25)",
+          overflow: "hidden",
+        }}
+      >
+        {children}
+      </View>
+    </View>
   );
 }

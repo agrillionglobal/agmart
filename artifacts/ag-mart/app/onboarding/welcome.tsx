@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
@@ -22,10 +22,7 @@ export default function Welcome() {
       ]}
     >
       <View style={styles.top}>
-        <View style={[styles.logo, { backgroundColor: colors.primary }]}>
-          <Feather name="shopping-bag" size={36} color={colors.primaryForeground} />
-        </View>
-        <Text style={[styles.brand, { color: colors.foreground }]}>AG Mart</Text>
+        <Image source={require("@/assets/images/logo.png")} style={styles.logo} resizeMode="contain" />
         <Text style={[styles.tag, { color: colors.mutedForeground }]}>
           Your Discount, Your Wealth
         </Text>
@@ -89,16 +86,9 @@ function Feature({
 
 const styles = StyleSheet.create({
   wrap: { flex: 1, paddingHorizontal: 28, justifyContent: "space-between" },
-  top: { alignItems: "center", gap: 16 },
-  logo: {
-    width: 88,
-    height: 88,
-    borderRadius: 24,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  brand: { fontFamily: "Inter_700Bold", fontSize: 36, letterSpacing: -1 },
-  tag: { fontFamily: "Inter_500Medium", fontSize: 16 },
+  top: { alignItems: "center", gap: 8 },
+  logo: { width: 220, height: 220 },
+  tag: { fontFamily: "Inter_500Medium", fontSize: 16, marginTop: -8 },
   middle: { gap: 18 },
   feat: { flexDirection: "row", alignItems: "center", gap: 14 },
   featIcon: {
