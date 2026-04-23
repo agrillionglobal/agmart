@@ -1,13 +1,14 @@
 import { Link, useLocation } from "wouter";
-import { ShoppingCart, Search, Menu, X } from "lucide-react";
+import { ShoppingCart, Search, Menu, X, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { Logo } from "./Logo";
 import { useCart } from "@/store/cart";
 
 const navItems = [
   { to: "/", label: "Home" },
-  { to: "/browse", label: "Browse" },
-  { to: "/vendors", label: "Vendors" },
+  { to: "/browse", label: "Marketplace" },
+  { to: "/ai", label: "AI Lab" },
+  { to: "/vendors", label: "Farmers" },
   { to: "/orders", label: "Orders" },
 ];
 
@@ -27,22 +28,22 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+    <header className="sticky top-0 z-40 border-b border-border/50 glass-strong">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
           <Link href="/" className="shrink-0">
             <Logo size={36} />
           </Link>
 
-          <form onSubmit={onSearch} className="hidden md:flex flex-1 max-w-xl">
+          <form onSubmit={onSearch} className="hidden md:flex flex-1 max-w-md">
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input
                 type="search"
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="Search produce, vendors, categories…"
-                className="w-full h-10 pl-10 pr-4 rounded-full border bg-muted/50 focus:bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm"
+                placeholder="Search produce, vendors, AI tools…"
+                className="w-full h-10 pl-10 pr-4 rounded-full border border-border bg-muted/40 focus:bg-card focus:outline-none focus:ring-2 focus:ring-primary/40 text-sm"
               />
             </div>
           </form>
@@ -50,16 +51,18 @@ export function Header() {
           <nav className="hidden lg:flex items-center gap-1">
             {navItems.map((it) => {
               const active = location === it.to;
+              const isAi = it.to === "/ai";
               return (
                 <Link
                   key={it.to}
                   href={it.to}
-                  className={`px-3 py-2 rounded-full text-sm font-medium transition ${
+                  className={`px-3 py-2 rounded-full text-sm font-medium transition flex items-center gap-1 ${
                     active
-                      ? "bg-primary/10 text-primary"
-                      : "text-foreground/70 hover:text-foreground hover:bg-muted"
+                      ? "bg-primary/15 text-primary"
+                      : "text-foreground/75 hover:text-foreground hover:bg-muted/60"
                   }`}
                 >
+                  {isAi && <Sparkles className="h-3.5 w-3.5" />}
                   {it.label}
                 </Link>
               );
@@ -69,19 +72,19 @@ export function Header() {
           <div className="flex items-center gap-2">
             <Link
               href="/cart"
-              className="relative inline-flex items-center justify-center h-10 w-10 rounded-full hover:bg-muted transition"
+              className="relative inline-flex items-center justify-center h-10 w-10 rounded-full hover:bg-muted/60 transition"
               aria-label="Cart"
             >
               <ShoppingCart className="h-5 w-5" />
               {totalCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center min-w-[20px] h-5 px-1 rounded-full bg-secondary text-secondary-foreground text-[11px] font-bold">
+                <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center min-w-[20px] h-5 px-1 rounded-full neon-bg text-primary-foreground text-[11px] font-bold">
                   {totalCount}
                 </span>
               )}
             </Link>
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className="lg:hidden inline-flex items-center justify-center h-10 w-10 rounded-full hover:bg-muted"
+              className="lg:hidden inline-flex items-center justify-center h-10 w-10 rounded-full hover:bg-muted/60"
               aria-label="Menu"
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -99,7 +102,7 @@ export function Header() {
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
                   placeholder="Search…"
-                  className="w-full h-10 pl-10 pr-4 rounded-full border bg-muted/50 text-sm"
+                  className="w-full h-10 pl-10 pr-4 rounded-full border bg-muted/40 text-sm"
                 />
               </div>
             </form>
@@ -109,7 +112,7 @@ export function Header() {
                   key={it.to}
                   href={it.to}
                   onClick={() => setMobileOpen(false)}
-                  className="px-4 py-2.5 rounded-lg bg-muted text-sm font-medium text-center"
+                  className="px-4 py-2.5 rounded-xl bg-muted/60 text-sm font-medium text-center"
                 >
                   {it.label}
                 </Link>

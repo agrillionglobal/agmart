@@ -12,7 +12,7 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/product/${product.id}`}
-      className="group block bg-card border rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition-all"
+      className="group block glass rounded-2xl overflow-hidden hover:border-primary/50 hover:-translate-y-0.5 transition-all"
     >
       <div className="relative aspect-square bg-muted overflow-hidden">
         <img
@@ -21,13 +21,14 @@ export function ProductCard({ product }: { product: Product }) {
           loading="lazy"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
         {discount > 0 && (
-          <div className="absolute top-2 left-2 gold-bg text-white text-[11px] font-bold px-2 py-1 rounded-full shadow">
+          <div className="absolute top-2 left-2 neon-bg text-primary-foreground text-[11px] font-bold px-2 py-1 rounded-full shadow">
             -{discount}%
           </div>
         )}
         {vendor?.verified && (
-          <div className="absolute top-2 right-2 bg-background/90 backdrop-blur text-[10px] font-semibold px-2 py-1 rounded-full text-primary border border-primary/20">
+          <div className="absolute top-2 right-2 glass text-[10px] font-semibold px-2 py-1 rounded-full text-primary">
             ✓ Verified
           </div>
         )}
