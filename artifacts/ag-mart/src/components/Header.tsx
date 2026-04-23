@@ -10,6 +10,7 @@ const navItems = [
   { to: "/ai-mart", label: "AI Mart", icon: true },
   { to: "/vendors", label: "Farmers" },
   { to: "/orders", label: "Orders" },
+  { to: "/contact", label: "Contact" },
 ];
 
 export function Header() {

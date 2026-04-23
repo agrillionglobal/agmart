@@ -1,6 +1,6 @@
 import { Logo } from "./Logo";
 import { Link } from "wouter";
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { Github, Twitter, Linkedin, Mail } from "lucide-react";
 
 export function Footer() {
   return (
@@ -12,6 +12,13 @@ export function Footer() {
             Agrillion Mart — Smart AG Mart. An admin-curated, AI-powered marketplace
             connecting farmers, vendors, logistics partners and buyers across Nigeria.
           </p>
+          <a
+            href="mailto:support@agrillionmart.store"
+            className="mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition"
+          >
+            <Mail className="h-4 w-4" />
+            support@agrillionmart.store
+          </a>
           <div className="mt-5 flex gap-2">
             {[Github, Twitter, Linkedin].map((Icon, i) => (
               <a
@@ -32,6 +39,7 @@ export function Footer() {
             <li><Link href="/vendors" className="hover:text-foreground">Verified Farmers</Link></li>
             <li><Link href="/vendor/list" className="hover:text-foreground">List a product</Link></li>
             <li><Link href="/onboarding" className="hover:text-foreground">Join the network</Link></li>
+            <li><Link href="/contact" className="hover:text-foreground">Contact us</Link></li>
           </ul>
         </div>
         <div>

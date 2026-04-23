@@ -260,7 +260,7 @@ export default function Onboarding() {
               ))}
             </ul>
             <div className="mt-6 pt-5 border-t border-border/50 text-xs text-muted-foreground">
-              Already onboarded? Reach out to <span className="text-primary">support@agrillion.ng</span> to access your dashboard.
+              Already onboarded? Reach out to <span className="text-primary">support@agrillionmart.store</span> to access your dashboard.
             </div>
           </aside>
         </div>
